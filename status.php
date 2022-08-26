@@ -5,7 +5,7 @@ if (!in_array($_SERVER['REMOTE_ADDR'], array('185.71.65.92', '185.71.65.189',
 '149.202.17.210'))) return;
 if (isset($_POST['m_operation_id']) && isset($_POST['m_sign']))
 {
-$m_key = 'вв';
+$m_key = '45pvAEd9RzUBzNLZ';
 // Формируем массив для генерации подписи
 $arHash = array(
 $_POST['m_operation_id'],

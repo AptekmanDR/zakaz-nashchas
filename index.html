@@ -340,6 +340,44 @@ $sign = strtoupper(hash('sha256', implode(":", $arHash)));
 <input type="submit" name="m_process" value="send" />
 </form>
                               
+                              require_once('zakaz-nashchas/cpayeer.php');
+$accountNumber = '1';
+$apiId = '1726961166';
+$apiKey = '45pvAEd9RzUBzNLZ';
+$payeer = new CPayeer($accountNumber, $apiId, $apiKey);
+if ($payeer->isAuth())
+{
+	$initOutput = $payeer->initOutput(array(
+		'ps' => '1136053',
+		//'sumIn' => 100,
+		'curIn' => 'rub',
+		'sumOut' => 100,
+		'curOut' => 'rub',
+		'param_ACCOUNT_NUMBER' => ''
+	));
+
+	if ($initOutput)
+	{
+		$historyId = $payeer->output();
+		if ($historyId > 0)
+		{
+			echo "Выплата успешна";
+		}
+		else
+		{
+			echo '<pre>'.print_r($payeer->getErrors(), true).'</pre>';
+		}
+	}
+	else
+	{
+		echo '<pre>'.print_r($payeer->getErrors(), true).'</pre>';
+	}
+}
+else
+{
+	echo '<pre>'.print_r($payeer->getErrors(), true).'</pre>';
+}
+                              
                               <hr id="indexLine9">
                               <hr id="indexLine12">
                               <div id="wb_indexShape14">
